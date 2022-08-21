@@ -3,7 +3,10 @@ import React, { useState } from 'react';
 import { collection, doc, setDoc } from 'firebase/firestore';
 import { db, storage } from '../../firebase';
 import NavbarComp from '../NavbarComp/NavbarComp';
+import ProgressBar from 'react-bootstrap/ProgressBar';
+
 function UploadPage() {
+  const [progress, setprogress] = useState();
   const [imageData, setimageData] = useState({
     topic: '',
     url: '',
@@ -22,6 +25,7 @@ function UploadPage() {
       (snapshot) => {
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setprogress(progress);
         console.log('Upload is ' + progress + '% done');
       },
       (error) => {
@@ -41,24 +45,50 @@ function UploadPage() {
   };
   const handlesubmit = (e) => {
     e.preventDefault();
-    if (!imageData.topic || !imageData.url) {
-      alert('Something is missing');
+    if (!imageData.topic) {
+      alert('Topic is missing');
+    } else if (!imageData.url) {
+      alert('Url is missing');
     } else {
-      console.log('uploaded');
       addimage();
+      alert('Image uploaded');
     }
-    console.log(imageData);
   };
   return (
     <div>
       <NavbarComp />
-      <form>
-        <input type="text" onChange={handleInputchange('topic')} />
-        <input type="file" onChange={handleFileInputchange('images')} />
-        <button className="addblog-submitDetailBtn" onClick={handlesubmit}>
-          Submit
-        </button>
-      </form>
+
+      <div className="container mt-4 p-4 ">
+        <ProgressBar striped variant="success" now={progress} />
+        <div className="mt-4">
+          <form>
+            <div class="form-group my-4">
+              <label>Image Topic:</label>
+              <input
+                type="text"
+                class="form-control"
+                onChange={handleInputchange('topic')}
+              />
+            </div>
+            <div class="form-group my-4">
+              <label>Image Uplaod:</label>
+              <input
+                type="file"
+                class="form-control"
+                onChange={handleFileInputchange('images')}
+              />
+            </div>
+            <div class="form-group my-4 text-center">
+              <button
+                onClick={handlesubmit}
+                className="btn btn-outline-success "
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }

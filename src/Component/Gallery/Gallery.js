@@ -20,7 +20,13 @@ export const Gallery = () => {
   const makeUi = () => {
     return allimages.map((image, index) => {
       return (
-        <img key={index} src={image.url} class="img-responsive" alt="loading" />
+        <img
+          key={index}
+          src={image.url}
+          class="img-responsive"
+          alt="loading"
+          loading="lazy"
+        />
       );
     });
   };
