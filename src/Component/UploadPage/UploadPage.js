@@ -29,6 +29,7 @@ function UploadPage() {
         console.log('Upload is ' + progress + '% done');
       },
       (error) => {
+        console.log(error);
         alert(error);
       },
       () => {
