@@ -4,6 +4,8 @@ import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import NavbarComp from '../NavbarComp/NavbarComp';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 export const Gallery = () => {
   const [allimages, setallimages] = useState();
   const getimages = async () => {
@@ -16,6 +18,7 @@ export const Gallery = () => {
   };
   useEffect(() => {
     getimages();
+    AOS.init({ duration: 3000 });
   }, []);
   const makeUi = () => {
     return allimages.map((image, index) => {
@@ -23,9 +26,9 @@ export const Gallery = () => {
         <img
           key={index}
           src={image.url}
-          class="img-responsive"
+          class="img-responsive slide-up"
           alt="loading"
-          loading="lazy"
+          data-aos="fade-up"
         />
       );
     });

@@ -52,7 +52,7 @@ function UploadPage() {
       alert('Url is missing');
     } else {
       addimage();
-      alert('Image uploaded');
+      console.log('uploaded');
     }
   };
   return (

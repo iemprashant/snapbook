@@ -47,3 +47,8 @@
   background: #e0e0e0;
   box-shadow: 5px 5px 30px #9f9f9f, -5px -5px 30px #ffffff;
 }
+
+.slide-up {
+  transition: all 500ms linear;
+  transform: translate3d(0, 100px, 0);
+}
